@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 
+const auth = require('./middleware/auth');
+app.get('/test-protected', auth(['admin']), (req, res) => res.json({ msg: 'Protected route' }));
+
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
